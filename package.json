@@ -2,11 +2,26 @@
   "name": "@payamnaghdy/vue-api-manager",
   "version": "0.0.1",
   "main": "index.js",
+  "keywords": [
+    "vue",
+    "api",
+    "api-manager",
+    "vue-api-manager"
+  ],
+  "homepage": "https://github.com/payamnaghdy/vue-api-manager",
+  "bugs": {
+    "url": "https://github.com/payamnaghdy/vue-api-manager/issues",
+    "email": "pnaghdy@gmail.com"
+  },
   "scripts": {
     "build": "babel src -d dist",
     "test": "jest ./test --verbose"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/payamnaghdy/vue-api-manager.git"
+  },
+  "author": "Payam Naghdi",
   "license": "ISC",
   "description": "",
   "devDependencies": {
