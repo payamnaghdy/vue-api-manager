@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1628806027601" clover="3.2.0">
+  <project timestamp="1628806027601" name="All files">
+    <metrics statements="47" coveredstatements="47" conditionals="33" coveredconditionals="26" methods="8" coveredmethods="8" elements="88" coveredelements="81" complexity="0" loc="47" ncloc="47" packages="1" files="2" classes="2"/>
+    <file name="exceptions.js" path="/home/payam/projects/vue-plugins/api-manager/vue-api-manager/src/exceptions.js">
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <line num="3" count="4" type="stmt"/>
+      <line num="4" count="4" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="11" count="2" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+    </file>
+    <file name="index.js" path="/home/payam/projects/vue-plugins/api-manager/vue-api-manager/src/index.js">
+      <metrics statements="35" coveredstatements="35" conditionals="33" coveredconditionals="26" methods="4" coveredmethods="4"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="14" count="14" type="cond" truecount="1" falsecount="1"/>
+      <line num="15" count="14" type="cond" truecount="1" falsecount="1"/>
+      <line num="16" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="14" type="cond" truecount="1" falsecount="1"/>
+      <line num="20" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="21" count="14" type="stmt"/>
+      <line num="26" count="14" type="stmt"/>
+      <line num="27" count="123" type="cond" truecount="1" falsecount="1"/>
+      <line num="29" count="123" type="cond" truecount="2" falsecount="0"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="31" count="122" type="cond" truecount="2" falsecount="0"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="34" count="121" type="stmt"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="50" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="64" count="12" type="stmt"/>
+      <line num="65" count="12" type="stmt"/>
+      <line num="70" count="12" type="cond" truecount="2" falsecount="0"/>
+      <line num="71" count="2" type="stmt"/>
+      <line num="74" count="11" type="cond" truecount="5" falsecount="0"/>
+      <line num="76" count="3" type="stmt"/>
+      <line num="83" count="3" type="stmt"/>
+      <line num="85" count="2" type="stmt"/>
+      <line num="92" count="2" type="stmt"/>
+      <line num="94" count="2" type="stmt"/>
+      <line num="99" count="2" type="stmt"/>
+      <line num="101" count="2" type="stmt"/>
+      <line num="106" count="2" type="stmt"/>
+      <line num="108" count="2" type="stmt"/>
+      <line num="118" count="2" type="stmt"/>
+      <line num="120" count="11" type="stmt"/>
+      <line num="124" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
