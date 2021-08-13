@@ -1,14 +1,14 @@
-#Vue API Manager
+# Vue API Manager
 Vue api manager is a centralized api manager for vue applications. It's usable through all components of your application
 , Design goal is to have an easy to use and config api manager for your vue application
 
-#Installation
+# Installation
 To install this module just run:
 ```angular2html
 npm install --save @payamnaghdy/vue-api-manager
 ```
 
-#Configuration
+# Configuration
 Create folder named api manage at the root of your project and inside the folder create
 index.js file.
 
@@ -40,22 +40,22 @@ export const APIRoutes = {
     }
 }
 ```
-##Options description
+## Options description
 Now I'm going to explain the options:
 
-###Authorization header prefix:
+### Authorization header prefix:
 ```angular2html
 <!--This is the prefix for your authorization header: <prefix> <auth token>-->
 <!--for example: Bearer <the auth token>-->
 authorizationHeaderPrefix: '<prefix>'
 ```
-###host and rootURL:
+### host and rootURL:
 ```angular2html
 <!--This two options are the host url and root url of your api-->
 host: '<host>', 
 rootURL: '',
 ```
-###Global headers:
+### Global headers:
 ```angular2html
 <!--This header options is global headers and will set headers for-->
 <!--all requests-->
@@ -70,7 +70,7 @@ export const APIRoutes = {
     }
 }
 ```
-###API path:
+### API path:
 ```angular2html
 <!--This is the path of the api so the module finally cals: -->
 <!--<host><rootURL><path>-->
@@ -88,7 +88,7 @@ apis: {
         .
     }
 ```
-###API headers and parameters
+### API headers and parameters
 ```angular2html
 <!--These two options are headers and params associated with this-->
 <!--request and the headers will be added to the global headers-->
@@ -106,8 +106,8 @@ apis: {
         .
     }
 ```
-##API with authorization
-###requiresAuth:
+## API with authorization
+### requiresAuth:
 ```angular2html
 <!--If your api needs authorization just set this property to true-->
 <!--You should not set the authorization header in the headers property -->
@@ -124,7 +124,7 @@ apis: {
         }
     }
 ```
-###Create VueAPIManager instance and set the authorization token getter:
+### Create VueAPIManager instance and set the authorization token getter:
 
 ```
 <!--You need to create a function that returns the token for authorization-->
@@ -145,7 +145,7 @@ Vue.prototype.$apiManager.setAuthorizationHeader(getAuthorizationToken)
 export default APIRoutes
 ```
 
-#Usage
+# Usage
 Finally, in your component you can call the api (remember one of my apis had apiOne as the key so im going to call a
 function with this name
 )
@@ -153,7 +153,7 @@ function with this name
 let response = await this.$apiManager.apiOne();
 console.log(response.data)
 ```
-###Extend headers and parameters:
+### Extend headers and parameters:
 You can also extend headers and params of the request.
 ```angular2html
 let response = await this.$apiManager.apiOne({
@@ -167,10 +167,10 @@ let response = await this.$apiManager.apiOne({
       console.log(response)
 ```
 
-#Return Value
+# Return Value
 This module uses axios underneath, and the return value is the same as axios
 
-#Todo
+# Todo
 
 - Create vue-cli service for the configuration (90% progress)
 - Create centralized error management for the module
