@@ -2,7 +2,15 @@
 Vue api manager is a centralized api manager for vue applications. It's usable through all components of your application
 , Design goal is to have an easy to use and config api manager for your vue application
 
-# Installation
+# Install with vue-cli
+In order to install this package with vue-cli in your vue project
+type:
+
+```vue add vue-api-manager```
+
+with vue-cli the config file will be generated automatically, and
+you can see each option description in the "Options description" section.
+# Manual Installation
 To install this module just run:
 ```angular2html
 npm install --save @payamnaghdy/vue-api-manager
@@ -40,7 +48,7 @@ export const APIRoutes = {
     }
 }
 ```
-## Options description
+# Options description
 Now I'm going to explain the options:
 
 ### Authorization header prefix:
@@ -172,5 +180,4 @@ This module uses axios underneath, and the return value is the same as axios
 
 # Todo
 
-- Create vue-cli service for the configuration (90% progress)
 - Create centralized error management for the module
