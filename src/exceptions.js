@@ -21,7 +21,7 @@ export class InvalidRequestMethod extends Error {
     }
 }
 
-export class UndefinedPath extends Error{
+export class UndefinedPath extends Error {
     constructor(apiName, apiProperties) {
         super('You should define path property for api');
         this.name = 'UndefinedPath'
@@ -30,4 +30,10 @@ export class UndefinedPath extends Error{
 
     }
 
+}
+
+export class NotImplemented extends Error {
+    constructor() {
+        super('Not Implemented');
+    }
 }

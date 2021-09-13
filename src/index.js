@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {NullAuthorizationHeaderError, InvalidRequestMethod, UndefinedPath} from './exceptions'
+import {InvalidRequestMethod, NullAuthorizationHeaderError, UndefinedPath} from './exceptions'
+import {getHTTPMethod, implementedMethods} from "./methods";
 
 const METHODS = {
     GET: "GET",
@@ -26,7 +27,7 @@ class VueAPIManager {
         for (const [key, value] of Object.entries(this._apis)) {
             let requestHeaders = value.headers ? value.headers : {}
 
-            if (!Object.values(METHODS).includes(value.method))
+            if (!Object.keys(implementedMethods).includes(value.method))
                 throw new InvalidRequestMethod(key, value)
             if (!value.hasOwnProperty('path'))
                 throw new UndefinedPath(key, value)
@@ -61,7 +62,6 @@ class VueAPIManager {
                          defaultHeaders = {}
                      }, {params, headers} = {params: {}, headers: {}}) {
 
-        let response = '';
         let requestHeaders = {
             ...defaultHeaders,
             ...headers
@@ -70,54 +70,8 @@ class VueAPIManager {
         if (requiresAuth) {
             requestHeaders['Authorization'] = `${this._authorizationHeaderPrefix} ${this._getAuthorizationHeader()}`;
         }
-
-        switch (method) {
-            case METHODS.GET:
-                response = await axios.get(url, {
-                    params: {
-                        ...defaultParams,
-                        ...params
-                    },
-                    headers: requestHeaders
-                });
-                break
-            case METHODS.POST:
-                response = await axios.post(
-                    url,
-                    {...defaultParams, ...params},
-                    {
-                        headers
-                    }
-                )
-                break
-            case METHODS.PATCH:
-                response = await axios.patch(
-                    url,
-                    {...defaultParams, ...params},
-                    {headers}
-                )
-                break
-            case METHODS.PUT:
-                response = await axios.put(
-                    url,
-                    {...defaultParams, ...params},
-                    {headers}
-                )
-                break
-            case METHODS.DELETE:
-                response = await axios.delete(
-                    url,
-                    {
-                        params: {
-                            ...defaultParams,
-                            ...params
-                        },
-                        headers: headers
-                    }
-                )
-                break
-        }
-        return response;
+        const requestParams ={...defaultParams, ...params}
+        return await getHTTPMethod(method)(url, requestParams, requestHeaders);
     }
 }
 

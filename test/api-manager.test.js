@@ -311,7 +311,7 @@ describe('VueAPIManager', () => {
             }
         )
         expect(mockAxios.delete).toBeCalledTimes(1);
-        expect(mockAxios.delete).toBeCalledWith("/deleteData", {"headers": {}, params: {}})
+        expect(mockAxios.delete).toBeCalledWith("/deleteData", {data: {}, headers: {}})
     })
     it('DELETE to deleteDataWithParams', async () => {
         let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
@@ -328,6 +328,6 @@ describe('VueAPIManager', () => {
             }
         )
         expect(mockAxios.delete).toBeCalledTimes(1);
-        expect(mockAxios.delete).toBeCalledWith("/deleteDataWithParams", {"headers": {}, params:{"id": 1}})
+        expect(mockAxios.delete).toBeCalledWith("/deleteDataWithParams", {"headers": {}, data: {"id": 1}})
     })
 })
