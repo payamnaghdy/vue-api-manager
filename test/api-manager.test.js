@@ -330,4 +330,107 @@ describe('VueAPIManager', () => {
         expect(mockAxios.delete).toBeCalledTimes(1);
         expect(mockAxios.delete).toBeCalledWith("/deleteDataWithParams", {"headers": {}, data: {"id": 1}})
     })
+
+    it('Parse response with 2xx status', async () => {
+        let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
+
+        mockAxios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    result: {
+                        status: 'OK'
+                    }
+                }
+            })
+        );
+        const dataWithoutParser = await apiManager.getAll();
+        expect(dataWithoutParser.parsedData).toBe(undefined)
+
+        mockAxios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    result: {
+                        status: 'OK'
+                    }
+                }
+            })
+        );
+        const responseParser = (response) => {
+            return response.data.result.status
+        }
+        apiManager.setResponseParser(responseParser)
+        const data = await apiManager.getAll();
+        expect(data.parsedData).toBe('OK')
+    })
+
+    it('Parse response with status > 2xx', async () => {
+
+        mockAxios.get.mockImplementationOnce(() => {
+                throw  {
+                    response: {
+                        status: 400,
+                        data: {
+                            result: {
+                                status: 'NOK'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+        let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
+
+        const dataWithoutParser = await apiManager.getAll();
+        expect(dataWithoutParser.parsedError).toBe(400);
+
+        mockAxios.get.mockImplementationOnce(() => {
+                throw  {
+                    response: {
+                        status: 400,
+                        data: {
+                            result: {
+                                status: 'NOK'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+        const httpErrorParser = (response) => {
+            return response.data.result.status;
+        }
+        apiManager.setHttpErrorParser(httpErrorParser);
+        const data = await apiManager.getAll();
+        expect(data.parsedError).toBe('NOK')
+    })
+    it('Error without response with message', async () => {
+        mockAxios.get.mockImplementationOnce(() => {
+                throw {
+                    message: 'Error from tests'
+                }
+            }
+        );
+        let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
+        const data = await apiManager.getAll();
+        expect(data.parsedError).toBe('Error from tests');
+    })
+    it('Error without response and message', async () => {
+        mockAxios.get.mockImplementationOnce(() => {
+                throw {}
+            }
+        );
+        let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
+        const data = await apiManager.getAll();
+        expect(data.parsedError).toBe('No message');
+
+        mockAxios.get.mockImplementationOnce(() => {
+                throw {}
+            }
+        );
+        apiManager.setDefaultErrorMessage('New default message')
+        const dataNewDefault = await apiManager.getAll()
+        expect(dataNewDefault.parsedError).toBe('New default message');
+
+    })
 })

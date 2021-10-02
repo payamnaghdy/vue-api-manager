@@ -12,6 +12,9 @@ const METHODS = {
 
 class VueAPIManager {
     constructor(config) {
+        this._responseParser = null;
+        this._httpErrorParser = null;
+        this._defaultErrorMessage = 'No message'
         this._host = config.hasOwnProperty('host') ? config.host : "";
         this._apiURL = `${this._host}${config.hasOwnProperty('rootURL') ? config.rootURL : "/"}`;
         this._apis = config.hasOwnProperty('apis') ? config.apis : {};
@@ -47,6 +50,16 @@ class VueAPIManager {
         this._authorizationHeader = authHeaderGetter;
     }
 
+    setResponseParser(responseParser) {
+        this._responseParser = responseParser;
+    }
+
+    setHttpErrorParser(httpErrorParser) {
+        this._httpErrorParser = httpErrorParser;
+    }
+    setDefaultErrorMessage(message) {
+        this._defaultErrorMessage = message;
+    }
     _getAuthorizationHeader() {
         if (!this._authorizationHeader) {
             throw new NullAuthorizationHeaderError()
@@ -70,8 +83,34 @@ class VueAPIManager {
         if (requiresAuth) {
             requestHeaders['Authorization'] = `${this._authorizationHeaderPrefix} ${this._getAuthorizationHeader()}`;
         }
-        const requestParams ={...defaultParams, ...params}
-        return await getHTTPMethod(method)(url, requestParams, requestHeaders);
+        const requestParams = {...defaultParams, ...params}
+        try {
+            let response = await getHTTPMethod(method)(url, requestParams, requestHeaders);
+            if (this._responseParser)
+                response.parsedData = this._responseParser(response);
+            return response;
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                let response = error.response;
+                if (this._httpErrorParser)
+                    response.parsedError = this._httpErrorParser(response);
+                else
+                    response.parsedError = error.response.status;
+                return response;
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                if (error.message)
+                    return {
+                        parsedError: error.message
+                    }
+                else
+                    return {
+                        parsedError: this._defaultErrorMessage
+                    }
+            }
+        }
     }
 }
 
