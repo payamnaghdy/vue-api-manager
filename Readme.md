@@ -10,6 +10,17 @@ type:
 
 with vue-cli the config file will be generated automatically, and
 you can see each option description in the "Options description" section.
+
+For Vue 2 you need to import the module:
+
+```import apiManager from "./api-manager";```
+
+then add the module to your vue instance 
+```Vue.prototype.$api = apiManager;```
+
+For Vue 3:
+
+Just import the module in your component and use it
 # Manual Installation
 To install this module just run:
 ```angular2html
@@ -153,6 +164,39 @@ Vue.prototype.$apiManager.setAuthorizationHeader(getAuthorizationToken)
 export default APIRoutes
 ```
 
+
+# Parse response and error:
+## Response
+Imagine your api returns something like this: 
+```angular2html
+{
+body: {...}
+}
+```
+
+And the part you care about is in data(or any other preprocessing) you can write a function to get data and pass it to the module.
+
+```angular2html
+const parseResponse = response => {
+  return response.data.response;
+};
+```
+```apiManager.setResponseParser(parseResponse);```
+
+Then you can access the parsed data in return value like this: 
+
+```angular2html
+let response = await this.$apiManager.someApiName();
+console.log(response.parsedData)
+```
+## Error
+You can also set an error parser in cases that error has body (in other cases automatically exception message will be set)
+```angular2html
+const parseError = response => {
+  return response.errorBody.message;
+};
+```
+then you can access error data in attribute `parsedError` in response
 # Usage
 Finally, in your component you can call the api (remember one of my apis had apiOne as the key so im going to call a
 function with this name
@@ -178,6 +222,3 @@ let response = await this.$apiManager.apiOne({
 # Return Value
 This module uses axios underneath, and the return value is the same as axios
 
-# Todo
-
-- Create centralized error management for the module
