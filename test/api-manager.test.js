@@ -26,6 +26,12 @@ describe('VueAPIManager', () => {
                 params: {},
                 requiresAuth: true
             },
+            getWithConfig: {
+                method: 'GET',
+                path: 'getData',
+                params: {},
+                axiosConfig: {responseType: 'stream'}
+            },
             postData: {
                 method: "POST",
                 path: 'postData',
@@ -187,6 +193,28 @@ describe('VueAPIManager', () => {
         expect(mockAxios.get).toBeCalledWith("/gatData", {
             "headers": {"Authorization": "Bearer Auth token"},
             "params": {}
+        })
+
+    });
+    it('GET request to getData with axiosConfig', async () => {
+        let apiManager = new VueAPIManager(API_MANAGER_CONFIG);
+        mockAxios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {status: "OK"}
+            })
+        );
+
+        const data = await apiManager.getWithConfig();
+        expect(data).toEqual(
+            {
+                data: {status: "OK"}
+            }
+        )
+        expect(mockAxios.get).toBeCalledTimes(1);
+        expect(mockAxios.get).toBeCalledWith("/getData", {
+            "headers": {},
+            "params": {},
+            "responseType": "stream"
         })
 
     });

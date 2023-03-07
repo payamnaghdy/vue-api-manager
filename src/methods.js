@@ -2,50 +2,55 @@ import axios from "axios";
 import {NotImplemented} from "./exceptions";
 
 
-async function get(url, params, headers) {
+async function get(url, params, headers, config) {
     return await axios.get(url, {
         params,
-        headers
+        headers,
+        ...config
     });
 }
 
-async function post(url, params, headers) {
+async function post(url, params, headers, config) {
     return await axios.post(
         url,
         params,
         {
-            headers
+            headers,
+            ...config
         }
     )
 }
 
-async function patch(url, params, headers) {
+async function patch(url, params, headers, config) {
     return await axios.patch(
         url,
         params,
         {
-            headers
+            headers,
+            ...config
         }
     )
 }
 
-async function put(url, params, headers) {
+async function put(url, params, headers, config) {
     return await axios.put(
         url,
         params,
         {
-            headers
+            headers,
+            ...config
         }
     )
 }
 
-async function _delete(url, params, headers) {
+async function _delete(url, params, headers, config) {
     return await axios.delete(
         url,
         {
             headers,
-            data: params
-        }
+            data: params,
+            ...config
+        },
     )
 }
 
