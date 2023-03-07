@@ -40,7 +40,8 @@ class VueAPIManager {
                 method: value.method,
                 defaultParams: value.params ? value.params : {},
                 requiresAuth: value.requiresAuth,
-                defaultHeaders: requestHeaders
+                defaultHeaders: requestHeaders,
+                axiosConfig: value.axiosConfig
             })
         }
 
@@ -72,7 +73,8 @@ class VueAPIManager {
                          method,
                          defaultParams = {},
                          requiresAuth = false,
-                         defaultHeaders = {}
+                         defaultHeaders = {},
+                         axiosConfig = {},
                      }, {params, headers} = {params: {}, headers: {}}) {
 
         let requestHeaders = {
@@ -85,7 +87,7 @@ class VueAPIManager {
         }
         const requestParams = {...defaultParams, ...params}
         try {
-            let response = await getHTTPMethod(method)(url, requestParams, requestHeaders);
+            let response = await getHTTPMethod(method)(url, requestParams, requestHeaders, axiosConfig);
             if (this._responseParser)
                 response.parsedData = this._responseParser(response);
             return response;
